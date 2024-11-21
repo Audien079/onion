@@ -3,11 +3,11 @@ version: "3"
 services:
   redis:
     image: redis:6-alpine
-    container_name: cpm_redis
+    container_name: onion_redis
     restart: always
-  cpm-py:
+  onion-py:
     build: .
-    container_name: cpm-backend-py
+    container_name: onion-backend-py
     command: gunicorn admin.wsgi:application --bind 0.0.0.0:9093 --workers=4
     restart: always
     volumes:
@@ -15,12 +15,12 @@ services:
       - media:/app/media
   celery:
     build: .
-    container_name: cpm_celery
+    container_name: onion_celery
     command: celery -A admin worker -B -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler
     volumes:
       - media:/app/media
   nginx:
-    container_name: cpm_nginx
+    container_name: onion_nginx
     image: nginx:mainline-alpine
     restart: always
     ports:
@@ -30,7 +30,7 @@ services:
       - media:/app/media
       - ./nginx:/etc/nginx/conf.d
     depends_on:
-      - cpm-py
+      - onion-py
 
 networks:
   default:
