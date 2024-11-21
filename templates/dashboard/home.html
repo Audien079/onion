@@ -1,0 +1,88 @@
+{% extends 'layouts/top.html' %}
+{% load static %}
+{% load custom_filters %}
+{% block header %}
+<title>Dashboard</title>
+{% endblock %}
+{% block style %}
+<link href="{% static 'assets/css/user-profile.css' %}" rel="stylesheet" type="text/css" />
+<style>
+ .card {
+      border: none;
+      border-radius: 10px;
+      box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.1);
+      padding: 15px;
+      text-align: center;
+    }
+    .icon {
+      font-size: 24px;
+      color: #00aaff;
+    }
+    .metric-value {
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .metric-label {
+      color: #6c757d;
+    }
+    .divider {
+      height: 1px;
+      background-color: #e9ecef;
+      margin: 10px 0;
+    }
+</style>
+{% endblock %}
+{% block content %}
+<div class="main-content">
+    <div class="container-fluid" style="margin-top: 135px;">
+        <div class="container mt-4">
+        <div class="row g-4">
+          <!-- Card 1 -->
+          <div class="col-md-4">
+            <div class="card">
+              <div class="icon mb-2">👥</div>
+              <div class="metric-value">33.29mil</div>
+              <div class="metric-label">IMPRESSIONS</div>
+              <div class="divider"></div>
+              <div class="d-flex justify-content-between">
+                <div>Active Campaigns<br><strong>0</strong></div>
+                <div>Pending Campaigns<br><strong>0</strong></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="col-md-4">
+            <div class="card">
+              <div class="icon mb-2">🛒</div>
+              <div class="metric-value">$0.06</div>
+              <div class="metric-label">AVERAGE CPM</div>
+              <div class="divider"></div>
+              <div class="d-flex justify-content-center">
+                <div>Committed Credit<br><strong>$0.00</strong></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="col-md-4">
+            <div class="card">
+              <div class="icon mb-2">📊</div>
+              <div class="metric-value">0.111%</div>
+              <div class="metric-label">AVERAGE CTR (ALL)</div>
+              <div class="divider"></div>
+              <div class="d-flex justify-content-center">
+                <div>Total Clicks<br><strong>28.09k</strong></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+</div>
+{% endblock %}
+{% block script %}
+<script>
+</script>
+{% endblock %}
