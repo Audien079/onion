@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'users',
     'dashboard',
     'advertisement',
+    'api',
 ]
 
 

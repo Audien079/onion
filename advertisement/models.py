@@ -6,7 +6,8 @@ class Advertisement(BaseModel):
     """
     Advertisement model
     """
-    text = models.CharField(max_length=300)
+    title = models.CharField(max_length=300)
+    xml_data = models.TextField()
 
     def __str__(self):
-        return self.text
+        return self.title

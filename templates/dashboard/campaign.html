@@ -7,49 +7,124 @@
 {% block style %}
 <link href="{% static 'assets/css/user-profile.css' %}" rel="stylesheet" type="text/css" />
 <style>
- .list-container {
-}
+body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
 
-.item-list {
-    list-style-type: none;
-    justify-content: center;
-    padding: 0;
-    margin: 0;
-}
+        .ad-container {
+            width: 90%;
+            margin: 20px auto;
+            max-width: 800px;
+            padding: 10px;
+        }
 
-.list-item {
-    background-color: #fff;
-    margin: 10px 0;
-    padding: 15px 20px;
-    font-size: 16px;
-    color: #333;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-    cursor: pointer;
-}
+        .ad-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
 
-.list-item:hover {
-    background-color: #e3f2fd;
-    color: #007bff;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
+        .ad-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 10px;
+            transition: transform 0.2s;
+        }
+
+        .ad-item:hover {
+            transform: scale(1.02);
+        }
+
+        .ad-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 5px;
+            object-fit: cover;
+            margin-right: 10px;
+        }
+
+        .ad-content {
+            flex-grow: 1;
+            margin-right: 10px;
+        }
+
+        .ad-title {
+            margin: 0;
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .ad-description {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .ad-xml {
+            display: none; /* Hide textarea visually */
+        }
+
+        .copy-btn {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            font-size: 14px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .copy-btn:hover {
+            background-color: #0056b3;
+        }
 </style>
 {% endblock %}
 {% block content %}
 <div class="main-content">
     <div class="container-fluid" style="margin-top: 135px;">
-        <div class="list-container">
-          <ul class="item-list">
-            {% for add in adds %}
-              <li class="list-item">{{add.text}}</li>
+        <div class="ad-container">
+        <ul class="ad-list">
+            {% for ad in adds %}
+            <li class="ad-item">
+                <img src="{{ ad.Advertisement.Ad.ImageURL }}" alt="{{ ad.Advertisement.Ad.Imageurl }}" class="ad-image">
+                <div class="ad-content">
+                    <h3 class="ad-title">{{ ad.title }}</h3>
+                    <p class="ad-description">{{ ad.Advertisement.Ad.Description }}</p>
+<!--                    <textarea class="ad-xml" readonly>{{ ad }} dk</textarea>-->
+                </div>
+                <button class="copy-btn" data-xml="{{ ad.raw_xml }}" onclick="copyXML(this)">Copy</button>
+            </li>
             {% endfor %}
-          </ul>
-      </div>
+        </ul>
+    </div>
     </div>
 </div>
 {% endblock %}
 {% block script %}
 <script>
+$(document).ready(function () {
+    $('.copy-btn').on('click', function(){
+        data = $(this).attr('data-xml')
+
+        const tempInput = $("<input>");
+        $("body").append(tempInput);
+        tempInput.val(data).select();
+
+        // Copy the text to the clipboard
+        document.execCommand("copy");
+
+        // Remove the temporary input
+        tempInput.remove();
+    })
+})
 </script>
 {% endblock %}

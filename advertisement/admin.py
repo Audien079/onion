@@ -8,6 +8,5 @@ class AdvertisementAdmin(admin.ModelAdmin):
     Advertisement data view in admin panel
     """
 
-    list_display = ["id", "text"]
-    search_fields = ["text"]
-
+    list_display = ["id", "title"]
+    search_fields = ["title"]
