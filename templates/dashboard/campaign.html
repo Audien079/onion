@@ -143,7 +143,7 @@
                     <p class="ad-company">Company: <span>{{ ad.company }}</span></p>
                 </div>
                 <a href="https://example.com" target="_blank" class="visit-btn">{{ ad.button_text }}</a>
-                <button class="copy-btn" data-xml="Test XML Content" onclick="copyXML(this)">Copy</button>
+                <button class="copy-btn" data-xml="{{ad.xml_data}}" onclick="copyXML(this)">Copy</button>
                 <a href="{% url 'update_campaign' ad.id %}"><button class="edit-btn" data-xml="Test XML Content">Edit</button></a>
             </li>
             {% endfor %}
