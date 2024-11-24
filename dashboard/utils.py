@@ -1,36 +1,48 @@
-from django.template.loader import render_to_string
-from sendgrid.helpers.mail import Mail
-from sendgrid import SendGridAPIClient
-from django.conf import settings
+import os
+from django.core.files.storage import default_storage
 
 
-def send_email(to_email, subject, html_content):
+class S3ImageUploader:
     """
-    Send email using sendgrid
+    A class to handle uploading images to an S3 bucket.
     """
-    message = Mail(
-        from_email='cody@useexplore.com',
-        to_emails=to_email,
-        subject=subject,
-        html_content=html_content
-    )
 
-    try:
-        sg = SendGridAPIClient(settings.SENDGRID_API_KEY)
-        response = sg.send(message)
-        return response.status_code
+    def _extract_filename(self, url):
+        """
+        Extracts the filename from the URL.
 
-    except Exception as e:
-        return str(e)
+        Args:
+            url (str): URL from which to extract the filename.
 
+        Returns:
+            str: The extracted filename.
+        """
+        file_name = url.split("/")[-1]
+        if "?" in file_name:
+            file_name = file_name.split("?")[0]
+        return file_name
 
-def email_questionnaire(user, link):
-    """email test"""
-    to_email = user.email
-    subject = 'CPA Questionnaire'
-    context = {
-        "username": user.username,
-        "link": link
-    }
-    html_message = render_to_string("dashboard/email_template.html", context=context)
-    send_email(to_email, subject, html_message)
+    def store_image(self, image, obj):
+        """
+        Load image with GET and store response in S3 bucket.
+
+        Args:
+            url (str): URL of the image to store.
+
+        Returns:
+            str: The URL of the stored image in the S3 bucket.
+        """
+        file_extension = image.name.split('.')[-1]
+        new_filename = f"{obj.add_id}.{file_extension}"
+        s3_path = f"media/onion/images/{new_filename}"
+        saved_path = default_storage.save(s3_path, image)
+        file_url = default_storage.url(saved_path)
+
+        if hasattr(image, 'close'):
+            image.close()
+
+        temp_local_path = os.path.join(default_storage.location, s3_path)
+        if os.path.exists(temp_local_path):
+            os.remove(temp_local_path)
+
+        return file_url

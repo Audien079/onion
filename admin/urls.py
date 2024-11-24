@@ -7,4 +7,5 @@ urlpatterns = [
     path('api/', include('api.urls')),
     path('', include('users.urls')),
     path('', include('dashboard.urls')),
+    path('', include('advertisement.urls')),
 ]

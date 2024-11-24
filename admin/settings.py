@@ -27,6 +27,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
+    'crispy_forms',
+    'crispy_bootstrap4',
     'users',
     'dashboard',
     'advertisement',
@@ -70,6 +72,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'admin.wsgi.application'
 
+CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 DATABASES = {
     "default": {
@@ -82,6 +85,13 @@ DATABASES = {
         "CONN_MAX_AGE": 60,
     }
 }
+
+AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')
+AWS_S3_REGION_NAME = 'us-west-1'  # e.g., 'us-west-1', 'ap-south-1'
+AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 
 AUTH_PASSWORD_VALIDATORS = [

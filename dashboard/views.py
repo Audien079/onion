@@ -23,16 +23,5 @@ class CampaignView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        queryset = Advertisement.objects.all()
-        ads_json = []
-        for obj in queryset:
-            try:
-                ad_dict = xmltodict.parse(obj.xml_data)
-                ad_dict["raw_xml"] = obj.xml_data
-                ad_dict["title"] = obj.title
-                ads_json.append(ad_dict)
-            except Exception as e:
-                ads_json.append(f"Error parsing XML: {str(e)}")
-
-        context["adds"] = ads_json
+        context["adds"] = Advertisement.objects.all()
         return context

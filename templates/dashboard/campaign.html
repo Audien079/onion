@@ -7,101 +7,144 @@
 {% block style %}
 <link href="{% static 'assets/css/user-profile.css' %}" rel="stylesheet" type="text/css" />
 <style>
-body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            margin: 0;
-            padding: 0;
-        }
+/* Main container styling for each ad item */
+.ad-item {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
 
-        .ad-container {
-            width: 90%;
-            margin: 20px auto;
-            max-width: 800px;
-            padding: 10px;
-        }
+/* Image styling */
+.ad-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    object-fit: cover;
+    margin-right: 15px;
+}
 
-        .ad-list {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
+/* Content container */
+.ad-content {
+    flex: 1;
+}
 
-        .ad-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background-color: #fff;
-            padding: 10px;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            margin-bottom: 10px;
-            transition: transform 0.2s;
-        }
+/* Title styling */
+.ad-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin: 0 0 5px;
+}
 
-        .ad-item:hover {
-            transform: scale(1.02);
-        }
+/* Description styling */
+.ad-description {
+    font-size: 14px;
+    color: #555;
+    margin: 0 0 5px;
+}
 
-        .ad-image {
-            width: 80px;
-            height: 80px;
-            border-radius: 5px;
-            object-fit: cover;
-            margin-right: 10px;
-        }
+/* Company name styling */
+.ad-company {
+    font-size: 13px;
+    color: #777;
+    margin: 0 0 10px;
+}
 
-        .ad-content {
-            flex-grow: 1;
-            margin-right: 10px;
-        }
+.ad-company span {
+    font-weight: bold;
+    color: #333;
+}
 
-        .ad-title {
-            margin: 0;
-            font-size: 16px;
-            font-weight: bold;
-            color: #333;
-        }
+/* Button to visit the company website */
+.visit-btn {
+    display: inline-block;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 8px 12px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
 
-        .ad-description {
-            margin: 5px 0;
-            font-size: 14px;
-            color: #666;
-        }
+.visit-btn:hover {
+    background-color: #0056b3;
+}
 
-        .ad-xml {
-            display: none; /* Hide textarea visually */
-        }
+/* Copy button styling */
+.copy-btn {
+    background-color: #17a2b8;
+    color: #fff;
+    border: none;
+    font-size: 14px;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-left: 15px;
+}
 
-        .copy-btn {
-            background-color: #007BFF;
-            color: #fff;
-            border: none;
-            padding: 5px 10px;
-            font-size: 14px;
-            border-radius: 3px;
-            cursor: pointer;
-        }
+.copy-btn:hover {
+    background-color: #138496;
+}
 
-        .copy-btn:hover {
-            background-color: #0056b3;
-        }
+.edit-btn {
+    background-color: #d54d70;
+    color: #fff;
+    border: none;
+    font-size: 14px;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-left: 15px;
+}
+
+.edit-btn:hover {
+    background-color: #c31f49;
+}
+
+.header-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+.ad-container {
+    margin-top: 10px;
+    width: 75%;
+    margin-left: 125px;
+}
+
 </style>
 {% endblock %}
 {% block content %}
 <div class="main-content">
     <div class="container-fluid" style="margin-top: 135px;">
+        <div class="header-container">
+            <a href="{% url 'create_campaign' %}" class="add-campaign-btn">
+                <button class="btn btn-primary btn-md">Add Campaign</button>
+            </a>
+        </div>
         <div class="ad-container">
         <ul class="ad-list">
             {% for ad in adds %}
             <li class="ad-item">
-                <img src="{{ ad.Advertisement.Ad.ImageURL }}" alt="{{ ad.Advertisement.Ad.Imageurl }}" class="ad-image">
+                <img src="{{ ad.image_url }}" alt="Ad Image" class="ad-image">
                 <div class="ad-content">
                     <h3 class="ad-title">{{ ad.title }}</h3>
-                    <p class="ad-description">{{ ad.Advertisement.Ad.Description }}</p>
-<!--                    <textarea class="ad-xml" readonly>{{ ad }} dk</textarea>-->
+                    <p class="ad-description">{{ ad.description }}</p>
+                    <p class="ad-company">Company: <span>{{ ad.company }}</span></p>
                 </div>
-                <button class="copy-btn" data-xml="{{ ad.raw_xml }}" onclick="copyXML(this)">Copy</button>
+                <a href="https://example.com" target="_blank" class="visit-btn">{{ ad.button_text }}</a>
+                <button class="copy-btn" data-xml="Test XML Content" onclick="copyXML(this)">Copy</button>
+                <a href="{% url 'update_campaign' ad.id %}"><button class="edit-btn" data-xml="Test XML Content">Edit</button></a>
             </li>
             {% endfor %}
         </ul>
