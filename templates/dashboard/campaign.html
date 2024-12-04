@@ -135,6 +135,7 @@
         <div class="ad-container">
         <ul class="ad-list">
             {% for ad in adds %}
+            {% if ad.has_image %}
             <li class="ad-item">
                 <img src="{{ ad.image_url }}" alt="Ad Image" class="ad-image">
                 <div class="ad-content">
@@ -146,6 +147,18 @@
                 <button class="copy-btn" data-xml="{{ad.xml_data}}" onclick="copyXML(this)">Copy</button>
                 <a href="{% url 'update_campaign' ad.id %}"><button class="edit-btn" data-xml="Test XML Content">Edit</button></a>
             </li>
+            {% else %}
+            <li class="ad-item">
+                <div class="ad-content">
+                    <a style="text-decoration: none;" href="{{ ad.website }}"><h3 style="color: blue;" class="ad-title">{{ ad.title }}</h3></a>
+                    <p class="ad-description">{{ ad.description }}</p>
+                    <p class="ad-company">Company: <span>{{ ad.company }}</span></p>
+                    <p style="color: blue;"><span>{{ ad.sub_title_1 }} </span><span style="margin-left: 130px;">{{ ad.sub_title_2 }}</span></p>
+                </div>
+                <button class="copy-btn" data-xml="{{ad.xml_data}}" onclick="copyXML(this)">Copy</button>
+                <a href="{% url 'update_campaign' ad.id %}"><button class="edit-btn" data-xml="Test XML Content">Edit</button></a>
+            </li>
+            {% endif %}
             {% endfor %}
         </ul>
     </div>

@@ -11,7 +11,10 @@ class CampaignForm(forms.ModelForm):
     class Meta:
         model = Advertisement
         fields = [
+            "has_image",
             "title",
+            "sub_title_1",
+            "sub_title_2",
             "description",
             "website",
             "company",
@@ -21,7 +24,10 @@ class CampaignForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields["has_image"].label = ""
         self.fields["title"].label = False
+        self.fields["sub_title_1"].label = False
+        self.fields["sub_title_2"].label = False
         self.fields["description"].label = False
         self.fields["website"].label = False
         self.fields["company"].label = False

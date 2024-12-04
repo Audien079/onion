@@ -141,9 +141,17 @@ form#radio_form {
                                           </div>
                                           <div class="mb-3">
                                              <div class="control-group">
-                                                <label for="id_website" class="control-label requiredField"> Website URL</label>
+                                                <label for="id_website" class="control-label"> Subtitle 1</label>
                                                 <div class="controls">
-                                                   {{ form.website|as_crispy_field }}
+                                                   {{ form.sub_title_1|as_crispy_field }}
+                                                </div>
+                                             </div>
+                                       </div>
+                                           <div class="mb-3">
+                                             <div class="control-group">
+                                                <label for="id_website" class="control-label"> Subtitle 2</label>
+                                                <div class="controls">
+                                                   {{ form.sub_title_2|as_crispy_field }}
                                                 </div>
                                              </div>
                                        </div>
@@ -161,6 +169,7 @@ form#radio_form {
                                  </div>
                                   <div class="float-child2">
                                       <div class="row">
+                                          {% if form.has_image.value %}
                                           <div class="mb-3">
                                              <div class="control-group">
                                                 <label for="id_image" class="control-label"> Image</label>
@@ -169,6 +178,15 @@ form#radio_form {
                                                  </div>
                                              </div>
                                           </div>
+                                          {% endif %}
+                                          <div class="mb-3">
+                                             <div class="control-group">
+                                                <label for="id_website" class="control-label requiredField"> Website URL</label>
+                                                <div class="controls">
+                                                   {{ form.website|as_crispy_field }}
+                                                </div>
+                                             </div>
+                                       </div>
                                           <div class="mb-3">
                                              <div class="control-group">
                                                 <label for="id_company" class="control-label"> Company Name</label>

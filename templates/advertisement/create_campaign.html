@@ -139,14 +139,22 @@ form#radio_form {
                                                    </div>
                                                 </div>
                                           </div>
-                                          <div class="mb-3">
+                                           <div class="mb-3">
                                              <div class="control-group">
-                                                <label for="id_title" class="control-label requiredField"> Website URL</label>
-                                                <div class="controls">
-                                                   {{ form.website|as_crispy_field }}
-                                                </div>
+                                                <label for="id_image" class="control-label"> Sub Title 1</label>
+                                                 <div class="controls">
+                                                    {{ form.sub_title_1|as_crispy_field }}
+                                                 </div>
                                              </div>
-                                       </div>
+                                          </div>
+                                           <div class="mb-3">
+                                             <div class="control-group">
+                                                <label for="id_image" class="control-label"> Sub Title 2</label>
+                                                 <div class="controls">
+                                                    {{ form.sub_title_2|as_crispy_field }}
+                                                 </div>
+                                             </div>
+                                          </div>
                                        <div class="mb-3">
                                           <div class="control-group">
                                              <label for="id_title" class="control-label requiredField"> Description</label>
@@ -154,7 +162,6 @@ form#radio_form {
                                                 {{ form.description|as_crispy_field }}
                                              </div>
                                           </div>
-
                                        </div>
                                        </div>
                                     </div>
@@ -162,13 +169,21 @@ form#radio_form {
                                   <div class="float-child2">
                                       <div class="row">
                                           <div class="mb-3">
-                                             <div class="control-group">
-                                                <label for="id_image" class="control-label"> Image</label>
-                                                 <div class="controls">
-                                                    {{ form.image|as_crispy_field }}
-                                                 </div>
-                                             </div>
+                                                <div class="control-group">
+                                                   <label for="id_title" class="control-label"> Is Image Advertisement</label>
+                                                   <div class="controls">
+                                                      {{ form.has_image|as_crispy_field }}
+                                                   </div>
+                                                </div>
                                           </div>
+                                          <div class="mb-3">
+                                             <div class="control-group">
+                                                <label for="id_title" class="control-label"> Website URL</label>
+                                                <div class="controls">
+                                                   {{ form.website|as_crispy_field }}
+                                                </div>
+                                             </div>
+                                       </div>
                                           <div class="mb-3">
                                              <div class="control-group">
                                                 <label for="id_tags" class="control-label"> Company Name</label>
@@ -182,6 +197,14 @@ form#radio_form {
                                                 <label for="id_tags" class="control-label"> Display Button Text</label>
                                                  <div class="controls">
                                                     {{ form.button_text|as_crispy_field }}
+                                                 </div>
+                                             </div>
+                                          </div>
+                                          <div class="mb-3 image-field">
+                                             <div class="control-group">
+                                                <label for="id_image" class="control-label"> Image</label>
+                                                 <div class="controls">
+                                                    {{ form.image|as_crispy_field }}
                                                  </div>
                                              </div>
                                           </div>
@@ -211,8 +234,18 @@ form#radio_form {
 {% block script %}
 <script src="{% static 'assets/js/inputmask.js' %}"></script>
 <script>
-   $(document).ready(function() {
-
-   });
+$(document).ready(function() {
+    is_image = $('#id_has_image').prop('checked')
+    if (!is_image) {
+        $('.image-field').hide();
+    }
+    $('#id_has_image').change(function() {
+        if ($(this).prop('checked')) {
+            $('.image-field').show();
+        } else {
+            $('.image-field').hide();
+        }
+    });
+});
 </script>
 {% endblock %}

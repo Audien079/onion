@@ -24,10 +24,12 @@ class CreateCampaign(CreateView):
             image = cleaned_data.pop("image")
             adv = self.model.objects.create(**cleaned_data)
             adv.save()
-            s3_uploader = S3ImageUploader()
-            image_url_s3 = s3_uploader.store_image(image, adv)
-            adv.image_url = image_url_s3
-            adv.save()
+
+            if adv.has_image:
+                s3_uploader = S3ImageUploader()
+                image_url_s3 = s3_uploader.store_image(image, adv)
+                adv.image_url = image_url_s3
+                adv.save()
             return redirect(self.get_success_url())
 
         return super().form_invalid(form)
