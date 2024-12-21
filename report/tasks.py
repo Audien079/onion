@@ -5,6 +5,7 @@ from celery import shared_task
 from report.models import Website
 
 
+@shared_task
 def check_status():
     """
     Checks status of all websites
