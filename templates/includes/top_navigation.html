@@ -51,6 +51,13 @@
                         <span key="t-dashboards">Campaigns</span>
                     </a>
                 </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link arrow-none
+                        {% if 'reports' in url_name %}active{% endif %}" href="{% url 'website_report' %}" id="topnav-dashboard"
+                       role="button">
+                        <span key="t-dashboards">Reports</span>
+                    </a>
+                </li>
             </ul>
         </div>
     </nav>
