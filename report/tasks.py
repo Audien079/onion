@@ -3,6 +3,7 @@ import requests
 from admin import logger
 from celery import shared_task
 from report.models import Website
+from admin.utils import email_down_sites
 
 
 @shared_task
@@ -26,6 +27,8 @@ def check_status():
         website.save()
         logger.info(f"Checked status for {website}")
 
+    email_down_sites("andrew.quel@gmail.com")
+    email_down_sites("audien079@gmail.com")
     logger.info("Fetched status for all the websites")
 
 

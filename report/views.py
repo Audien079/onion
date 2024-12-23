@@ -13,8 +13,6 @@ class ReportListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        from admin.utils import email_down_sites
-        email_down_sites("audien079@gmail.com")
         context["webs"] = Website.objects.all()
         return context
 
