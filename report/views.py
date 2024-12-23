@@ -1,6 +1,6 @@
 from report.models import Website
 from report.forms import WebsiteForm
-from django.views.generic import TemplateView, ListView, CreateView
+from django.views.generic import ListView, CreateView
 from django.urls.base import reverse_lazy
 
 
@@ -13,6 +13,8 @@ class ReportListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        from admin.utils import email_down_sites
+        email_down_sites("audien079@gmail.com")
         context["webs"] = Website.objects.all()
         return context
 

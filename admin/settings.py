@@ -155,3 +155,8 @@ BROKER_TRANSPORT_OPTIONS = {"visibility_timeout": 3600}
 CELERY_ACCEPT_CONTENT = ["json"]
 CELERY_RESULT_BACKEND = "django-db"
 CELERY_WORKER_REDIRECT_STDOUTS = False
+
+# Twilio SendGrid
+MAIL_BACKEND = "sendgrid_backend.SendgridBackend"
+SENDGRID_API_KEY = env('SENDGRID_API_KEY')
+SENDGRID_SANDBOX_MODE_IN_DEBUG = False
