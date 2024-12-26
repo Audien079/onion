@@ -8,5 +8,5 @@ class WebsiteAdmin(admin.ModelAdmin):
     Website data view in admin panel
     """
 
-    list_display = ["web_url", "id"]
+    list_display = ["web_url", "id", "status", "type"]
     search_fields = ["web_url"]
